@@ -19,6 +19,18 @@
 
 public class Dijkstra {
   public static void main(String [] args) {
+    Graph g = new Graph();
+    Vertex v1 = new Vertex("A");
+    Vertex v2 = new Vertex("B");
+    Vertex v3 = new Vertex("C");
 
+    g.addVertex(v1);
+    g.addVertex(v2);
+    g.addVertex(v3);
+
+    g.addEdge(new Edge(v1, v3));
+    g.addEdge(new Edge(v2, v3));
+    
+    g.printGraph();
   }
 }
