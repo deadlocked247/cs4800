@@ -40,8 +40,6 @@ public class Dijkstra {
     }
 
     public void createPaths(Vertex startVertex) {
-      System.out.println("FIRT");
-
 
       PriorityHeap Q = new PriorityHeap(graph.getAllVertices().size());
 
@@ -65,18 +63,19 @@ public class Dijkstra {
         List<Edge> edgeList = this.graph.getAllEdgesForVertex(u.nodeVertex);
         for (Edge e : edgeList) {
           Vertex neighbor = e.getFrom();
-          if (e.getFrom().equals(u)) {
+          if (e.getFrom().equals(u.nodeVertex)) {
             neighbor = e.getTo();
           }
-//          System.out.println(u.minDist);
-  //        System.out.println(e.getWeight());
+          System.out.println(this.distanceMap.get(neighbor) + " TO " + (u.minDist + e.getWeight()));
 
           if (this.distanceMap.get(neighbor) > u.minDist + e.getWeight()) {
+            System.out.println("min dist: " + u.minDist + " " + e.print() + ": "+ e.getWeight());
             this.distanceMap.put(neighbor, u.minDist + e.getWeight());
             Q.changeKey(neighbor, u.minDist + e.getWeight());
             this.preMap.put(neighbor, u.nodeVertex);
           }
         }
+        System.out.println();
 
       }
     }

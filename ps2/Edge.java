@@ -41,4 +41,8 @@ public class Edge {
       return ( (sameOrder || reverseOrder) && this.weight == other.getWeight());
   }
 
+  public String print() {
+    return "(" + this.getFrom().getName() + "->" + this.getTo().getName() + ")";
+  }
+
 }
