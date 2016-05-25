@@ -11,7 +11,9 @@ public class Graph {
   }
 
   public void addVertex(Vertex vertex) {
-    this.vertexMap.put(vertex, new ArrayList<Edge>());
+    if (!this.hasVertex(vertex)) {
+      this.vertexMap.put(vertex, new ArrayList<Edge>());
+    }   
   }
 
   public void addEdge(Edge edge) {
