@@ -20,7 +20,7 @@ public class Edge {
 
   @Override
   public String toString() {
-      return this.getFrom().getValue() + "->" + this.getTo().getValue() + " (" + this.getWeight() + " )";
+      return this.getFrom().getName() + "->" + this.getTo().getName() + " (" + this.getWeight() + " )";
   }
 
   public Vertex getTo() {

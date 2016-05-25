@@ -1,3 +1,6 @@
+import java.io.*;
+import java.util.Scanner;
+
 /**
 
   Burak Aslan
@@ -20,17 +23,23 @@
 public class Dijkstra {
   public static void main(String [] args) {
     Graph g = new Graph();
-    Vertex v1 = new Vertex("A");
-    Vertex v2 = new Vertex("B");
-    Vertex v3 = new Vertex("C");
-
-    g.addVertex(v1);
-    g.addVertex(v2);
-    g.addVertex(v3);
-
-    g.addEdge(new Edge(v1, v3));
-    g.addEdge(new Edge(v2, v3));
-    
+    try {
+      Scanner input = new Scanner(new File(args[0]));
+      while (input.hasNext()) {
+        String str = input.next().split("=");
+        String nodes = str[0].split(",");
+        Vertex v1 = g.getVertex(nodes[0]);
+        Vertex v2 = g.getVertex(nodes[1]);
+        if (!v1) v1 = new Vertex(nodes[0]);
+        if (!v2) v2 = new Vertex(nodes[1]);
+        Edge e = g.getEdgeBetweenVertex(v1, v2);
+        if (!e) e = new Edge(v1, v2, str[1]);
+        g.addEdge(e);
+      }
+    } catch (FileNotFoundException ex) {
+        System.out.println("Error loading file");
+        return;
+    }
     g.printGraph();
   }
 }

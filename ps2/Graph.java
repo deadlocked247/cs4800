@@ -19,12 +19,6 @@ public class Graph {
       this.vertexMap.get(edge.getTo()).add(new Edge(edge.getTo(), edge.getFrom(), edge.getWeight()));
   }
 
-  /**
-   * Get the edge between given source and destination
-   * @param to : Destination Vertex
-   * @param from : Source Vertex
-   * @return Edge connecting source and destination
-   */
   public Edge getEdgeBetweenVertex(Vertex to, Vertex from) {
       if(to == null || from == null)
           throw new NullPointerException("Null data");
@@ -33,8 +27,7 @@ public class Graph {
           throw new IllegalArgumentException("Vertex not part of graph");
 
       for(Edge e : this.vertexMap.get(from))
-          if(e.getTo().equals(to))
-              return e;
+          if(e.getTo().equals(to)) return e;
 
       return null;
   }
