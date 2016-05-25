@@ -23,7 +23,7 @@ public class PriorityHeap{
 	public int size() {
 		return size;
 	}
-	
+
 	public void insert(Vertex vertex, int minDist) {
 		HeapNode newNode = new HeapNode(vertex, minDist);
 		
@@ -39,6 +39,8 @@ public class PriorityHeap{
 		pos.put(heap[newPos].nodeVertex.getName(),newPos);
 	}
 	
+	
+
 	public HeapNode extractMin() {
 		int parent, child;
 		HeapNode min, val;
@@ -55,7 +57,7 @@ public class PriorityHeap{
 		while (child <= size) {
 			if (child  < size && heap[child].minDist > heap[child + 1].minDist)
 				child++;
-			if (val.minDist >= heap[child].minDist) 
+			if (val.minDist <= heap[child].minDist) 
 				break;
 			
 			heap[parent] = heap[child];
