@@ -24,52 +24,63 @@ import java.util.Scanner;
 
 public class Dijkstra {
 
-    public HashSet<Edge> shortestEdgeSet;
-
     public HashMap<Vertex, Integer> distanceMap;
 
-    private HashMap<Vertex, NodeStatus> visited;
+    private HashMap<Vertex, Vertex> preMap;
 
     private Graph graph;
 
-    private final Integer INFINITE = 99999999;
+    private final int INFINITE = 99999999;
 
     public Dijkstra(Graph g) {
-        shortestEdgeSet = new HashSet<Edge>();
-        this.visited = new HashMap<Vertex, NodeStatus>();
         this.graph = g;
-        distanceMap = initialize();
+        this.distanceMap = new HashMap<Vertex, Integer>();
+        this.preMap = new HashMap<Vertex, Vertex>();
+
     }
 
-    public HashMap<Vertex, Integer> createPaths(Vertex v1) {
-        Queue<Vertex> q = new LinkedList<Vertex>();
-        q.add(v1);
-        visited.put(v1, NodeStatus.KNOWN);
-        distanceMap.put(v1,0);
-        while(!q.isEmpty()) {
-            Vertex v = q.poll();
-            visited.put(v, NodeStatus.COMPLETE);
-            int distance = distanceMap.get(v);
-            for(Edge e : graph.getAllEdgesForVertex(v)) {
-                if(!visited.get(e.getTo()).equals(NodeStatus.COMPLETE)) {
-                    distanceMap.put(e.getTo(), Math.min(distanceMap.get(e.getTo()), distance + e.getWeight()));
-                    q.add(e.getTo());
-                    visited.put(e.getTo(), NodeStatus.COMPLETE);
-                }
-            }
+    public void createPaths(Vertex startVertex) {
+      System.out.println("FIRT");
+
+
+      PriorityHeap Q = new PriorityHeap(graph.getAllVertices().size());
+
+      Q.insert(startVertex, 0);
+      this.distanceMap.put(startVertex, 0);
+
+      for (Vertex v : graph.getAllVertices()) {
+        if (!v.equals(startVertex)) {
+          this.distanceMap.put(v, INFINITE);
+          Q.insert(v, INFINITE);
         }
-        return distanceMap;
+      }
+
+
+
+      while(!Q.isEmpty()) {
+
+        HeapNode u = Q.extractMin();
+        System.out.println(u.nodeVertex.getName());
+
+        List<Edge> edgeList = this.graph.getAllEdgesForVertex(u.nodeVertex);
+        for (Edge e : edgeList) {
+          Vertex neighbor = e.getFrom();
+          if (e.getFrom().equals(u)) {
+            neighbor = e.getTo();
+          }
+//          System.out.println(u.minDist);
+  //        System.out.println(e.getWeight());
+
+          if (this.distanceMap.get(neighbor) > u.minDist + e.getWeight()) {
+            this.distanceMap.put(neighbor, u.minDist + e.getWeight());
+            Q.changeKey(neighbor, u.minDist + e.getWeight());
+            this.preMap.put(neighbor, u.nodeVertex);
+          }
+        }
+
+      }
     }
 
-    private HashMap<Vertex, Integer> initialize() {
-        HashMap<Vertex, Integer> mapList = new HashMap<Vertex, Integer>();
-        Set<Vertex> vertexList = this.graph.getAllVertices();
-        for(Vertex v: vertexList) {
-            mapList.put(v, INFINITE);
-            this.visited.put(v, NodeStatus.UNKNOWN);
-        }
-        return mapList;
-    }
 
     public String print() {
       String str = "";
