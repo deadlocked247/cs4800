@@ -36,7 +36,9 @@ public class Edge {
   }
 
   public Boolean equals(Edge other) {
-      return (this.to.equals(other.getTo()) && this.from.equals(other.getFrom()) && this.weight == other.getWeight());
+	  boolean sameOrder = (this.to.equals(other.getTo()) && this.from.equals(other.getFrom());
+	  boolean reverseOrder = (this.to.equals(other.getFrom()) && this.from.equals(other.getTo());
+      return ( (sameOrder || reverseOrder) && this.weight == other.getWeight());
   }
 
 }
