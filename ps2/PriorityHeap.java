@@ -38,11 +38,6 @@ public class PriorityHeap{
 		heap[newPos] = newNode;
 		pos.put(heap[newPos].nodeVertex.getName(),newPos);
 	}
-<<<<<<< HEAD
-	
-	
-=======
->>>>>>> origin/master
 
 	public HeapNode extractMin() {
 		int parent, child;
@@ -60,11 +55,8 @@ public class PriorityHeap{
 		while (child <= size) {
 			if (child  < size && heap[child].minDist > heap[child + 1].minDist)
 				child++;
-<<<<<<< HEAD
+
 			if (val.minDist <= heap[child].minDist) 
-=======
-			if (val.minDist >= heap[child].minDist)
->>>>>>> origin/master
 				break;
 
 			heap[parent] = heap[child];

@@ -36,7 +36,6 @@ public class Dijkstra {
         this.graph = g;
         this.distanceMap = new HashMap<Vertex, Integer>();
         this.preMap = new HashMap<Vertex, Vertex>();
-
     }
 
     public void createPaths(Vertex startVertex) {
@@ -58,7 +57,6 @@ public class Dijkstra {
       while(!Q.isEmpty()) {
 
         HeapNode u = Q.extractMin();
-        System.out.println(u.nodeVertex.getName());
 
         List<Edge> edgeList = this.graph.getAllEdgesForVertex(u.nodeVertex);
         for (Edge e : edgeList) {
@@ -66,16 +64,13 @@ public class Dijkstra {
           if (e.getFrom().equals(u.nodeVertex)) {
             neighbor = e.getTo();
           }
-          System.out.println(this.distanceMap.get(neighbor) + " TO " + (u.minDist + e.getWeight()));
 
           if (this.distanceMap.get(neighbor) > u.minDist + e.getWeight()) {
-            System.out.println("min dist: " + u.minDist + " " + e.print() + ": "+ e.getWeight());
             this.distanceMap.put(neighbor, u.minDist + e.getWeight());
             Q.changeKey(neighbor, u.minDist + e.getWeight());
             this.preMap.put(neighbor, u.nodeVertex);
           }
         }
-        System.out.println();
 
       }
     }
@@ -83,9 +78,21 @@ public class Dijkstra {
 
     public String print() {
       String str = "";
-      for (Map.Entry<Vertex, Integer> entry : this.distanceMap.entrySet()) {
-        str += entry.getKey().getName() + "=" + entry.getValue() + ", ";
+      ArrayList<Vertex> list = new ArrayList<Vertex>();
+      for (Map.Entry<Vertex, Integer> m : this.distanceMap.entrySet()) {
+        list.add(m.getKey());
       }
-      return str;
+
+      Comparator<Vertex> comp = new Comparator<Vertex>() {
+        public int compare(Vertex c1, Vertex c2) {
+          return c1.getName().compareTo(c2.getName());
+        };
+      };
+      Collections.sort(list, comp);
+
+      for (Vertex v: list) {
+        str += v.getName() + "=" + this.distanceMap.get(v) + ", ";
+      }
+      return str.substring(0, str.length() - 2);
     }
 }
