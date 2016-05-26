@@ -52,8 +52,6 @@ public class Dijkstra {
         }
       }
 
-
-
       while(!Q.isEmpty()) {
 
         HeapNode u = Q.extractMin();
