@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Edit {
-	static int[][] opt;
+	static double[][] opt;
 	static int[][] move; //table of moves, 1=change,2=delete,3=add
 	static String a;
 	static String b;
@@ -12,12 +12,12 @@ public class Edit {
 		if(move[al-1][bl] == 0) editDist(al-1, bl);
 		if(move[al][bl-1] == 0) editDist(al,bl-1);
 
-		int ch = opt[al-1][bl-1];
+		double ch = opt[al-1][bl-1];
 		if (a.charAt(al-1)!=b.charAt(bl-1)) {
 			ch += 0.5;
 		}
-		int de = opt[al-1][bl] + 1;
-		int ad = opt[al][bl-1] + 1;
+		double de = opt[al-1][bl] + 1;
+		double ad = opt[al][bl-1] + 1;
 		if(ch<de && ch<ad){
 			opt[al][bl] = ch;
 			move[al][bl] = 1;
@@ -33,7 +33,7 @@ public class Edit {
 	public static void run(String str1, String str2) {
 		int aL = str1.length();
 		int bL = str2.length();
-		opt = new int[aL+1][bL+1];
+		opt = new double[aL+1][bL+1];
 		move = new int[aL+1][bL+1];
 		a = str1;
 		b = str2;
